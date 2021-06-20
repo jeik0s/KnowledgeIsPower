@@ -1,16 +1,13 @@
-# knowledgeispower
+# Knowledge is power
 
 Quiz With OpenTDB
 
-## Getting Started
+<h3> Layout ✔ </h3>
+<img src="readme/layout.png">
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<h3> Functionality 40% ✔ </h3>
+two classes, one for question hierarchy, one for question bank ✔ <br />
+parsing json with questions and answers from api ✔<br/>
+allow user to answer the question ✘ <br />
+save user result ✘ </br>
+restart question pool ✘ </br>
