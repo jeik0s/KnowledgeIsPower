@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'questionMechanism.dart';
+
+QuestionBank questionBank = QuestionBank(questionAmount: 10);
 
 void main() {
   runApp(KnowledgeIsPower());
@@ -27,20 +30,36 @@ class QuizArea extends StatefulWidget {
 }
 
 class _QuizAreaState extends State<QuizArea> {
+
+  Widget answerButton({required String answer})
+    => Container(
+      color: Colors.grey[400],
+      child: TextButton(onPressed: (){}, child: Text(answer)),
+    );
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: <Widget>[
           Expanded(
-            flex: 3,
+            flex: 1,
             child: Container(
-              child: Center(child: Text("First question")),
+              color: Colors.grey[700],
+              child: Center(child: Text(questionBank.getQuestionCategory(),
+              style: TextStyle(fontSize: 20,color: Colors.white),)),
+            ),
+          ),
+          Expanded(
+            flex: 6,
+            child: Container(
+              child: Center(child: Text(questionBank.getQuestionText(),
+              textAlign: TextAlign.center,)),
             ),
           ),
 //          GridAnswerList()
             Expanded(
-              flex: 3,
+              flex: 7,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: GridView.count(
@@ -49,22 +68,10 @@ class _QuizAreaState extends State<QuizArea> {
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                   children: <Widget>[
-                    Container(
-                      color: Colors.grey[400],
-                      child: TextButton(onPressed: (){}, child: Text("Answer 1")),
-                    ),
-                    Container(
-                      color: Colors.grey[400],
-                      child: TextButton(onPressed: (){}, child: Text("Answer 2")),
-                    ),
-                    Container(
-                      color: Colors.grey[400],
-                      child: TextButton(onPressed: (){}, child: Text("Answer 3")),
-                    ),
-                    Container(
-                      color: Colors.grey[400],
-                      child: TextButton(onPressed: (){}, child: Text("Answer 4")),
-                    )
+                    answerButton(answer: questionBank.getQuestionAnswer()[0]),
+                    answerButton(answer: questionBank.getQuestionAnswer()[1]),
+                    answerButton(answer: questionBank.getQuestionAnswer()[2]),
+                    answerButton(answer: questionBank.getQuestionAnswer()[3])
                   ],
                 ),
               ),
