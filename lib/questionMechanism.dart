@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:html_unescape/html_unescape.dart';
 import 'questionStructure.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,14 +19,14 @@ class QuestionBank {
     if(response.statusCode == 200) {
       for(int i=0;i<_questionAmount-1;i++) {
         _questionBank.add(QuestionStructure(
-          category:       jsonDecode(response.body)['results'][i]['category'],
-          question:       jsonDecode(response.body)['results'][i]['question'],
-          correctAnswer:  jsonDecode(response.body)['results'][i]['correct_answer'],
+          category:       HtmlUnescape().convert(jsonDecode(response.body)['results'][i]['category']),
+          question:       HtmlUnescape().convert(jsonDecode(response.body)['results'][i]['question']),
+          correctAnswer:  HtmlUnescape().convert(jsonDecode(response.body)['results'][i]['correct_answer']),
           answers: [
-                          jsonDecode(response.body)['results'][i]['correct_answer'],
-                          jsonDecode(response.body)['results'][i]['incorrect_answers'][0],
-                          jsonDecode(response.body)['results'][i]['incorrect_answers'][1],
-                          jsonDecode(response.body)['results'][i]['incorrect_answers'][2]
+                          HtmlUnescape().convert(jsonDecode(response.body)['results'][i]['correct_answer']),
+                          HtmlUnescape().convert(jsonDecode(response.body)['results'][i]['incorrect_answers'][0]),
+                          HtmlUnescape().convert(jsonDecode(response.body)['results'][i]['incorrect_answers'][1]),
+                          HtmlUnescape().convert(jsonDecode(response.body)['results'][i]['incorrect_answers'][2])
           ]
         ));
       }
