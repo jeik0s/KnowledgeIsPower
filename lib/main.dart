@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'questionMechanism.dart';
 
-QuestionBank questionBank = QuestionBank(questionAmount: 10);
+QuestionBank questionBank = QuestionBank();
+
 
 void main() {
   runApp(KnowledgeIsPower());
@@ -31,10 +32,37 @@ class QuizArea extends StatefulWidget {
 
 class _QuizAreaState extends State<QuizArea> {
 
+  List<Widget> scoreBoard = [
+    Icon(Icons.check, color: Colors.green,),
+    Icon(Icons.close, color: Colors.red,),
+  ];
+
+ @override
+  void initState() {
+    questionBank.getResponse(questionAmount: 10);
+    Future.delayed(const Duration(seconds: 2), (){
+      setState(() {
+        questionBank.nextQuestion();
+      });
+    });
+    super.initState();
+  }
+
+
+
   Widget answerButton({required String answer})
     => Container(
       color: Colors.grey[400],
-      child: TextButton(onPressed: (){}, child: Text(answer)),
+      child: TextButton(onPressed: (){
+        setState(() {
+          if(questionBank.getQuestionCorrectAnswer() == answer)
+            scoreBoard.add(Icon(Icons.check, color: Colors.green,),);
+          else
+            scoreBoard.add(Icon(Icons.close, color: Colors.red,),);
+          questionBank.nextQuestion();
+        });
+      }, child: Text(answer,
+      textAlign: TextAlign.center,)),
     );
 
   @override
@@ -76,6 +104,12 @@ class _QuizAreaState extends State<QuizArea> {
                 ),
               ),
             ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Row(
+              children: scoreBoard,
+            ),
+          )
         ],
       ),
     );
