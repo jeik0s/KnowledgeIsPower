@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 
 class QuestionBank {
 
+  int _correctAnswers = 0;
+
   late int _questionAmount;
   List<QuestionStructure> _questionBank = [
     QuestionStructure(category: "loading...", question: "loading...", correctAnswer: "loading...", answers: ["loading...","loading...","loading...","loading..."])
@@ -17,7 +19,7 @@ class QuestionBank {
 
     final response = await http.get(Uri.parse('https://opentdb.com/api.php?amount=10&type=multiple'));
     if(response.statusCode == 200) {
-      for(int i=0;i<_questionAmount-1;i++) {
+      for(int i=0;i<_questionAmount;i++) {
         _questionBank.add(QuestionStructure(
           category:       HtmlUnescape().convert(jsonDecode(response.body)['results'][i]['category']),
           question:       HtmlUnescape().convert(jsonDecode(response.body)['results'][i]['question']),
@@ -41,8 +43,16 @@ class QuestionBank {
   String getQuestionCorrectAnswer() => _questionBank[_questionNumber].correctAnswer;
   List<String> getQuestionAnswer() => _questionBank[_questionNumber].answers;
 
-  bool verifyAnswer({required String userAnswer}){
-    if(userAnswer == _questionBank[_questionNumber].correctAnswer)
+  void increaseGoodNumberValue(){
+    _correctAnswers++;
+  }
+
+int getCorrectAnswers(){
+    return _correctAnswers;
+}
+
+  bool lastQuestion(){
+    if(_questionNumber == _questionBank.length - 1)
       return true;
     else
       return false;
@@ -51,7 +61,14 @@ class QuestionBank {
   void nextQuestion(){
     if(_questionNumber < _questionBank.length - 1)
       _questionNumber++;
+  }
 
+  restartPoll(){
+    _questionNumber=0;
+    _correctAnswers=0;
+    _questionBank.clear();
+    _questionBank.add(QuestionStructure(category: "loading...", question: "loading...", correctAnswer: "loading...", answers: ["loading...","loading...","loading...","loading..."]));
+    getResponse(questionAmount: 10);
   }
 
 }
