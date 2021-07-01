@@ -81,6 +81,7 @@ class _QuizAreaState extends State<QuizArea> {
                      questionBank.nextQuestion();
                    });
                  });
+                 Navigator.pop(context);
                })
               ]
               ).show();
