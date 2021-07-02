@@ -31,6 +31,7 @@ class QuestionBank {
                           HtmlUnescape().convert(jsonDecode(response.body)['results'][i]['incorrect_answers'][2])
           ]
         ));
+        (_questionBank[i].answers).shuffle();
       }
       return true;
     } else {
