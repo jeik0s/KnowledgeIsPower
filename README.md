@@ -2,7 +2,7 @@
 
 Quiz With OpenTDB
 
-<h3> Layout ✔ </h3>
+<h3> Layout </h3>
 <img src="readme/layout.gif">
 
 <h3> Functionality 100% DONE!:)</h3>
